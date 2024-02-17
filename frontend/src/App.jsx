@@ -5,22 +5,25 @@ import uploadFile from './services/api.js';
 function App() {
  const fileInputRef=useRef();
 const [file, setFile]=useState(null);
+const [result,setResult]=useState(null);
 
 const handleClick=()=>{
   fileInputRef.current.click();
 }
 const handleChange=(e)=>{
- console.log(e.target.files[0]);
+  console.log(e.target.files[0]);
   setFile(e.target.files[0]);
 }
   useEffect(()=>{
-            const   getImage = async()=>{
+            const   getImage = async()=>{  
              if(file){
                const data=  new FormData();
                 data.append('name',file.name);
                 data.append('file',file);
                 const response= await uploadFile(data);
-                 console.log(response);
+                  
+                  setResult(response.data.path); 
+                  
              }
 
           }
@@ -37,6 +40,7 @@ const handleChange=(e)=>{
            <p>upload and share the download link!</p>
            <button onClick={handleClick}>Upload</button>
            <input type="file" style={{ display: 'none' }} ref={fileInputRef} onChange={handleChange}/>
+           <a href={result}>download file</a>
         </div>
       </div>
      </div>

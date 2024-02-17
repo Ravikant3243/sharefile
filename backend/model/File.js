@@ -10,8 +10,8 @@ const fileSchema=new Schema({
          required:true
        },
        downloadCount:{
-         type:Number,
-         required:true
+         type:Number
+        
        }
 })
 const File=mongoose.model("File",fileSchema);
